@@ -1,0 +1,31 @@
+<div class="card bg-dark text-white">
+    <div class="card-header">{{title}}</div>
+    <div class="card-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm ">
+                    <div class="row">
+                    <ul *ngIf="client" class="list-group text-dark mb-3 w-50">
+                        <li class="list-group-item active">{{client.firstName}}</li>
+                        <li class="list-group-item">{{client.lastName}}</li>
+                        <li class="list-group-item">{{client.email}}</li>
+                        <li class="list-group-item">{{client.createAt | date:"fullDate"}}</li>
+                    </ul>
+                    <div class="col-sm w-50" >
+                        <img *ngIf="client?.picture" src="http://localhost:8080/api/uploads/img/{{client.picture}}" alt="{{client.picture}}" class="img-thumbail w-75 rounded"/>
+                    </div>
+                </div>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input (change)="selectPicture($event)" type="file" aria-describedby="inputFileAddon" id="inputFile" class="custom-file-input">
+                            <label for="inputFile" class="custom-file-label">Upload picture</label>
+                        </div>
+                        <div class="input-group-append">
+                            <button (click)="uploadPicture()" class="btn btn-outline-secondary" type="button" id="inputFileAddon">Button</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

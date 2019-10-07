@@ -1,0 +1,31 @@
+<div class="card">
+    <div class="card-title px-3"><h1 class="border border-success border-left-0 border-right-0 border-top-0">{{title}}</h1></div>
+    <div class="card-body text-primary">
+        <h5 class="card-title">List of {{title}}</h5>
+        <div class="my-2 text-left">
+                <button class="btn btn-primary btn-rounded" type="button" [routerLink]="['/clients/form']">New Client</button>
+        </div>
+        <table class="table table-bordered table-striped">
+            <thead class="bg-dark text-white text-center">
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Date</th>
+                <th colspan="2"></th>
+            </thead>
+            <tbody *ngFor="let client of clientList">
+                <tr class="text-center">
+                    <td><button [routerLink]="['/clients/show',client.id]" class="btn btn-success sm">{{client.id}}</button></td>
+                    <td>{{client.firstName}}</td>
+                    <td>{{client.lastName | uppercase}}</td>
+                    <td>{{client.email}}</td>
+                    <td>{{client.createAt | date:"EEEE dd, MMMM yyyy"}}</td>
+                    <td><button type="button" name="edit" [routerLink]="['/clients/form/',client.id]" class="btn btn-info sm">Edit</button></td>
+                    <td><button type="button" name="delete" (click)='delete(client)' class="btn btn-danger sm">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <app-paginator *ngIf="paginator" [paginator]="paginator"></app-paginator>
+    </div>
+</div>

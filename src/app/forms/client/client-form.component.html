@@ -1,0 +1,58 @@
+<ul class="alert alert-danger" *ngIf="errorList?.length > 0"><!-- Ask if errorList instance already exist and after exec length -->
+    <li *ngFor="let err of errorList">
+        {{err}}
+    </li>
+</ul>
+<div class="card bg-dark text-white">
+    <div class="card-header">{{title}}</div>
+    <div class="card-body">
+        <form #clientForm="ngForm"><!--form  (ngSubmit)="create()"-->
+            <div>
+                <label for="" class="col-form-label col-sm-2">First Name</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="client.firstName" name="firstName" #firstName="ngModel"> <!-- required minlength="4" -->
+                    <div class="alert alert-danger" *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"><!-- Dirty is while you're typing and touched after lost focus on it  -->
+                        <div *ngIf="firstName.errors.required">
+                            The first name is required!!
+                        </div>
+                        <div *ngIf="firstName.errors.minlength">
+                            The first name should be at least 4 characters...                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label for="" class="col-form-label col-sm-2">Last Name</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="client.lastName" name="lastName">
+                </div>
+            </div>
+            <div>
+                <label for="" class="col-form-label col-sm-2">Email</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="client.email" name="email" required email #email="ngModel">
+                    <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)"><!-- Dirty is while you're typing and touched after lost focus on it  -->
+                        <div *ngIf="email.errors.required">
+                            The email is required!!
+                        </div>
+                        <div *ngIf="email.errors.email">
+                            The email should have valid format...                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label for="createAt" class="col-form-label col-sm-2">Date</label>
+                <div class="col-sm-6">
+                    <input type="date" class="form-control" [(ngModel)]="client.createAt" name="createAt">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <button class="btn btn-primary" role="button" (click)='create()' *ngIf="!client.id else elseBlock" ><!-- [disabled]="!clientForm.form.valid" -->Create</button>
+                    <ng-template #elseBlock>
+                        <button class="btn btn-primary" role="button" (click)='update()'>Edit</button>
+                    </ng-template>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
